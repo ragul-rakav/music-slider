@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="box">
+    <button id="play">▶</button>
+    <input type="range" id="bar" value="0">
+    <audio id="song" src="song.mp3"></audio>
+  </div>
+
+  <script>
+    const song = document.getElementById("song")
+    const play = document.getElementById("play")
+    const bar = document.getElementById("bar")
+
+    play.onclick = () => {
+      if (song.paused) {
+        song.play()
+        play.textContent = "⏸"
+      } else {
+        song.pause()
+        play.textContent = "▶"
+      }
+    }
+
+    song.ontimeupdate = () => {
+      bar.max = song.duration || 0
+      bar.value = song.currentTime
+    }
+
+    bar.oninput = () => {
+      song.currentTime = bar.value
+    }
+  </script>
+
+</body>
+</html>
